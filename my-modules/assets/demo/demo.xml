@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <!-- Demonstration data -->
+            <record id="object0" model="assets.assets">
+                <field name="name">first</field>
+                <field name="value">0</field>
+            </record>
+
+     
+            <record id="object1" model="assets.assets">
+                <field name="name">second</field>
+                <field name="value">10</field>
+            </record>
+        <!-- 
+
+            <record id="object2" model="assets.assets">
+                <field name="name">Object 2</field>
+                <field name="value">20</field>
+                <field name="value2"/>21</field>
+            </record> -->
+        <!--  -->
+        <!--   <record id="object3" model="assets.assets"> -->
+        <!--     <field name="name">Object 3</field> -->
+        <!--     <field name="value">30</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object4" model="assets.assets"> -->
+        <!--     <field name="name">Object 4</field> -->
+        <!--     <field name="value">40</field> -->
+        <!--   </record> -->
+        <!--  -->
+    </data>
+</odoo>

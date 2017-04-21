@@ -1,0 +1,140 @@
+<odoo>
+  <data>
+      
+
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="assets.list">
+      <field name="name">assets list</field>
+      <field name="model">assets.assets</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+          <field name="responsible_id"/>
+        </tree>
+      </field>
+    </record>
+    <!-- actions opening views on models -->
+  
+    <record model="ir.actions.act_window" id="assets.action_window">
+      <field name="name">Assets list window</field>
+      <field name="res_model">assets.assets</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  
+
+    <!-- server action to the one above -->
+    <record model="ir.actions.server" id="assets.action_server">
+      <field name="name">Assets server</field>
+      <field name="model_id" ref="model_assets_assets"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": "assets.assets",
+          "name":"Inherited",
+        }
+      </field>
+    </record>
+    
+
+    <!-- Top menu item -->
+    <menuitem name="assets" id="assets.menu_root"/>
+    <!-- menu categories -->
+    <menuitem name="Menu 1" id="assets.menu_1" parent="assets.menu_root"/>
+    <!-- <menuitem name="Menu 2" id="assets.menu_2" parent="assets.menu_root"/> -->
+    
+    <!-- actions -->
+    
+    <menuitem name="List" id="assets.menu_1_list" parent="assets.menu_1"
+              action="assets.action_window"/>
+    <menuitem name="Server to list" id="assets" parent="assets.menu_1" 
+              action="assets.action_server"/>
+   
+
+          <!-- Exterbnal id error -->
+      <record model="ir.ui.view" id="Assets">
+        <field name="name">Assets.instructor</field>
+        <field name="model">asset.view</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_asset_purchase_tree"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                       <field name="instructor"/>           
+            </field>
+        </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="Assets_action">
+        <field name="name">Assests</field>
+        <field name="res_model">asset.view</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+
+      <menuitem id="asset_menu" name="Assets" parent="assets.menu_1" action="Assets_action"/>
+
+
+                <!-- The End -->
+
+
+
+              <!-- session form view Start-->
+      
+    <record model="ir.ui.view" id="assests_session">
+        <field name="name">assets session </field>
+        <field name="model">assets.session</field>
+        <field name="arch" type="xml">
+            <form string="Session Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="instructor_id"/>
+                        <field name="last_modified"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+              <!-- Session action  -->
+    <record model="ir.actions.act_window" id="session_list_action">
+            <field name="name">Sessions</field>
+            <field name="res_model">assets.session</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="session_menu" name="Sessions" parent="assets.menu_1" action="session_list_action"/>
+                 <!-- The End -->
+
+     <!-- Add instructor field to existing view -->
+    <record model="ir.ui.view" id="Partner">
+        <field name="name">partner.instructor</field>
+        <field name="model">assets.session</field>
+        <field name="inherit_id" ref="assests_session"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='instructor_id']" position="after">
+            <field name="instructor" string="instructor"/>
+          </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="assets_list_action">
+        <field name="name">Contacts</field>
+        <field name="res_model">assets.session</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="configuration_menu" name="Configuration"
+                  parent="assets.menu_1"/>
+    <menuitem id="contact_menu" name="Contacts"
+              parent="configuration_menu"
+              action="assets_list_action"/>
+
+                  <!-- The End -->
+  </data>
+</odoo>
